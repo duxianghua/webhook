@@ -10,7 +10,9 @@ def index():
 def webhook():
     if request.method == 'POST':
         data = request.json
-        print data.keys()
+        project_name = data['repository']['name']
+        print project_name
+        #print data.keys()
         return 'ok'
     else:
         return 'not get method'

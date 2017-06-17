@@ -1,7 +1,13 @@
 from app import app
 from flask import request
-import json
+import logging
 import os
+
+logging.basicConfig(level=logging.DEBUG,
+                format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                datefmt='%a, %d %b %Y %H:%M:%S',
+                filename='/var/log/webhook.log',
+                filemode='w')
 
 @app.route('/')
 @app.route('/index')
@@ -19,6 +25,7 @@ def webhook():
         if project_name and isinstance(project_name, str):
             command = "python /usr/local/bin/deploy-code.py %s pull && python /usr/local/bin/deploy-code.py %s sync" % (project_name,project_name)
             os.system(command)
+            logging.info(command)
         return 'ok'
     else:
         return 'not get method'

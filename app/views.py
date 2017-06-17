@@ -9,7 +9,7 @@ def index():
 @app.route('/project', methods=['POST','GET'])
 def webhook():
     if request.method == 'POST':
-        data = request.json
+        data = request.get_json()
         project_name = data['repository']['name']
         print project_name
         #print data.keys()

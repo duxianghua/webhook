@@ -22,10 +22,9 @@ def webhook():
         project_name = data['repository']['name']
         #print project_name
         #print json.dumps(data, sort_keys=True, indent=2)
-        if project_name and isinstance(project_name, str):
-            command = "python /usr/local/bin/deploy-code.py %s pull && python /usr/local/bin/deploy-code.py %s sync" % (project_name,project_name)
-            os.system(command)
-            logging.info(command)
+        command = "python /usr/local/bin/deploy-code.py %s pull && python /usr/local/bin/deploy-code.py %s sync" % (project_name,project_name)
+        os.system(command)
+        logging.info(command)
         return 'ok'
     else:
         return 'not get method'

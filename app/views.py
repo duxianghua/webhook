@@ -2,6 +2,7 @@ from app import app
 from flask import request
 import logging
 import os
+import subprocess
 
 logging.basicConfig(level=logging.DEBUG,
                 format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
@@ -23,7 +24,7 @@ def webhook():
         #print project_name
         #print json.dumps(data, sort_keys=True, indent=2)
         command = "python /usr/local/bin/deploy-code.py %s pull && python /usr/local/bin/deploy-code.py %s sync" % (project_name,project_name)
-        os.popen(command)
+        subprocess.Popen(command, shell=True)
         logging.info(command)
         return 'ok'
     else:

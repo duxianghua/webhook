@@ -1,5 +1,6 @@
 from app import app
 from flask import request
+import json
 
 @app.route('/')
 @app.route('/index')
@@ -12,7 +13,7 @@ def webhook():
         data = request.get_json()
         project_name = data['repository']['name']
         print project_name
-        #print data.keys()
+        print json.dumps(data, sort_keys=True, indent=2)
         return 'ok'
     else:
         return 'not get method'
